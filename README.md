@@ -170,3 +170,41 @@ Small improvements can make everyday development work much more comfortable.
 ---
 
 **Keep it simple. Automate the little things.**
+
+
+
+
+
+
+
+
+
+## Real-World Test: PowerShell 7 + ADB + Fastboot
+
+I tested `cc` during USB driver troubleshooting on my Motorola Moto G05.
+
+Windows initially detected the phone with driver error Code 28, so `fastboot devices` returned no device. I used PowerShell to locate the Motorola USB driver installer, installed it silently with Windows Installer, and refreshed device detection.
+
+After the driver installation, Windows reported the phone as an OK Android USB device, and Fastboot detected it:
+
+```powershell
+fastboot devices
+```
+
+```text
+ZY32LCMTM2       fastboot
+```
+
+I also queried the bootloader's product variable:
+
+```powershell
+fastboot getvar product
+```
+
+```text
+product: lamul
+Finished. Total time: 0.003s
+```
+
+This was a practical test of the shortcuts in an actual troubleshooting workflow—not just a sample command.
+
