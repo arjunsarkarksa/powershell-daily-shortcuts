@@ -1,4 +1,4 @@
-# PowerShell Productivity Shortcuts: `cc` and `cf`
+# PowerShell Productivity Shortcuts: `cc`, `cf`, and `ccf`
 
 Small commands. Everyday productivity.
 
@@ -10,6 +10,7 @@ These two simple custom functions make those tasks faster:
 |---|---|
 | `cc` | Copy the currently visible console text to the clipboard |
 | `cf` | Clear the console screen |
+| `ccf` | Copy visible console text, then clear the screen |
 
 The goal is simple: spend less time managing your terminal and more time doing actual work.
 
@@ -25,6 +26,8 @@ When debugging an application, running scripts, checking logs, or troubleshootin
 Instead of manually selecting text with your mouse, use `cc`.
 
 Instead of typing `Clear-Host`, use `cf`.
+
+When you want to copy the current output and immediately clear the console, use `ccf`.
 
 ## Installation
 
@@ -91,6 +94,14 @@ function cf {
     Clear-Host
     [Console]::Write("`e[3J")
 }
+
+# ccf = Copy visible console content, then clear
+function ccf {
+    cc
+    if ($?) {
+        cf
+    }
+}
 ```
 
 Save the file.
@@ -134,6 +145,14 @@ cf
 
 Clears the visible console screen.
 
+### Copy and clear in one command
+
+```powershell
+ccf
+```
+
+Copies the currently visible console text using `cc`, then clears the screen using `cf`. This is handy when you want to save the output before starting fresh.
+
 ## Example Workflow
 
 ```powershell
@@ -147,6 +166,12 @@ When starting a new task:
 
 ```powershell
 cf
+```
+
+Or copy the output and clear in one step:
+
+```powershell
+ccf
 ```
 
 Clean terminal. Fresh start.
